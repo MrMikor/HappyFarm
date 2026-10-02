@@ -1,15 +1,44 @@
 #include <stdio.h>
 #include <locale.h> 
 
+
+// делаем глобальными переменными чтобы иметь возможность обращатьяс к ним из любой части кода
+int current_day = 1;
+int current_hour = 8;
+
+	//массив с id предметов
+int inventory[10] = {0};
+
+
+
+void work()
+{
+	int workTime = 0;
+	printf("Сколько часов выхотите поработать: \n");
+	scanf_s("%d", &workTime);
+	current_hour += workTime;
+
+	//проверка и добавление часов/дней
+	if (current_hour >= 24)
+	{
+		current_day += current_hour / 24;
+		current_hour = current_hour % 24;
+	}
+	printf("Текущее время: день %d, время %d:00\n", current_day, current_hour);
+
+	if (workTime > 12)
+	{
+		printf("Не стоит так сильно перетруждаться((( \n");
+	}
+
+
+
+
+}
 int main() 
 {
 	//делаем читаемый русский текст
 	setlocale(LC_ALL, "Russian");
-	int current_day = 1;
-	int current_hour = 8;
-
-	//массив с id предметов
-	int inventory[10] = {0};
 	int choice = 1;
 	while (choice !=0)
 	{
@@ -24,13 +53,13 @@ int main()
 			}
 			case(1):
 			{
-			printf("Функция 1 \n");
+			printf("Текущее время: день %d, время %d:00\n", current_day, current_hour);
 			break;
 
 			}
 			case(2):
 			{
-			printf("Функция 2 \n");
+			work();
 			break;
 
 			}
@@ -63,3 +92,12 @@ int main()
 	}
 return 0;
 }
+
+//void checkWatch()
+//{
+//	printf("Текущее время: день %d, время %d:00\n", current_day, current_hour);
+//
+//
+//
+//}
+
