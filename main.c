@@ -6,13 +6,11 @@
 int current_day = 1;
 int current_hour = 8;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 //массив с id предметов
 //т.е у нас есть массив и в нем id это предмет а его значение это кол-во этого предмета, следовательно 0 = пустая ячейка у меня же не может быть 0 яблок, но как мне привязать id к названиям 0_o
 //массивв инвентаря со вложеными предметами
-int inventory[10] = { 1, 2, 3, 5, 0, 8, 0, 0, 0, 0 };
+int inventory[10] = { 1, 2, 3, 5, 0, 8, 0, 5, 0, 5 };
 
 //название предметов по id
 char* itemNames[10] = {
@@ -27,37 +25,32 @@ char* itemNames[10] = {
 	"Мясо",
 	"Вода"
 };
-=======
-	//массив с id предметов
-int inventory[10] = {0};
-
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-=======
-	//массив с id предметов
-int inventory[10] = {0};
-
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-
+//проверка на число
+int readInt()
+{
+	int value;
+	while (scanf_s("%d", &value) != 1)
+	{
+		while (getchar() != '\n');         
+		printf("Это не число, попробуйте снова: ");
+	}
+	while (getchar() != '\n');
+	return value;
+}
 
 void work()
 {
 	int workTime = 0;
 	printf("Сколько часов выхотите поработать: \n");
-	scanf_s("%d", &workTime);
-	current_hour += workTime;
-<<<<<<< HEAD
-<<<<<<< HEAD
+	workTime = readInt();
+
+
 	if (workTime < 0)
 	{
 		printf("Нельзя работать отрицательное количество часов.\n");
 		return;
 	}
-=======
-
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-=======
-
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
+	current_hour += workTime;
 	//проверка и добавление часов/дней
 	if (current_hour >= 24)
 	{
@@ -75,8 +68,6 @@ void work()
 
 
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 void checkInventory()
 {
@@ -108,7 +99,7 @@ void putItem()
 	int slot, id;
 	checkInventory();
 	printf("Введите номер слота который хотите заменить (0-9): ");
-	scanf_s("%d", &slot);
+	slot = readInt();
 	if (slot < 0 || slot > 9) { printf("Неверный номер слота!\n"); return; }
 	//добавляем вывод предметов для удобства
 	for (int i = 0; i < 10; i++)
@@ -124,7 +115,7 @@ void putItem()
 
 
 	printf("Введите ID предмета (0-9): ");
-	scanf_s("%d", &id);
+	id = readInt();
 	if (id < 0 || id > 9) { printf("Неверный ID предмета!\n"); return; }
 
 	inventory[slot] = id;
@@ -138,25 +129,13 @@ void dropItem()
 	checkInventory();
 	int slot;
 	printf("Введите номер слота который хотите выбросить  (0-9): ");
-	scanf_s("%d", &slot);
+	slot = readInt();
 	if (slot < 0 || slot > 9) { printf("Неверный номер слота!\n"); return; }
 
 	inventory[slot] = 0;
 	printf("Слот %d очищен.\n", slot);
 }
 
-
-//
-//void putItem()
-//{
-//	int firstItemId, secondItenId;
-//	printf("Выберите предмет который хотите замениь:\n");
-//	scanf_s("%d", &firstItemId);
-//	printf("Выберите предмет с которым :\n");
-//	scanf_s("%d", &firstItemId);
-//
-//
-//}
 
 //можно использовать по желанию
 //void checkWatch()
@@ -167,59 +146,63 @@ void dropItem()
 //
 //}
 
-=======
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-=======
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
+void favoriteResource()
+{
+	int bestId = 0;
+	int bestCount = 0;
+
+	for (int id = 1; id <= 9; id++)
+	{
+		int count = 0;
+		for (int i = 0; i < 10; i++)
+		{
+			if (inventory[i] == id)
+				count++;
+		}
+
+		if (count > bestCount)
+		{
+			bestCount = count;
+			bestId = id;
+		}
+	}
+
+	if (bestId == 0)
+		printf("В инвентаре нет предметов.\n");
+	else
+		printf("Самый частый предмет: ID %d (%s), занимает %d слот(ов).\n",
+			bestId, itemNames[bestId], bestCount);
+}
+
 int main() 
 {
 	//делаем читаемый русский текст
 	setlocale(LC_ALL, "Russian");
-	int choice = 1;
-	while (choice !=0)
+	while (1)
 	{
 		printf("Меню \n [0] Выход \n [1] Посмотреть на часы \n [2] Промотать время (Поработать) \n [3] Посмотреть инвентарь \n [4] Положить предмет в слот \n [5] Выбросить предмет \n [6] Выполнить задание по варианту \n");
-		scanf_s("%d", &choice);
+		int choice = readInt();
 		//крутая менюшка
 		switch (choice)
 		{
 			case(0):
 			{
-				break;
+				return 0;
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-=======
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
 			case(1):
 			{
 			printf("Текущее время: день %d, время %d:00\n", current_day, current_hour);
 			break;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			}
 
-=======
-
-			}
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-=======
-
-			}
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
 			case(2):
 			{
 			work();
 			break;
-
 			}
 			case(3):
 			{
-<<<<<<< HEAD
-<<<<<<< HEAD
 			checkInventory();
 			break;
 			}
@@ -236,68 +219,16 @@ int main()
 			break;
 			}
 
-=======
-=======
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-			printf("Функция 3 \n");
-			break;
-
-			}
-			case(4):
-			{
-			printf("Функция 4 \n");
-			break;
-
-			}
-			case(5):
-			{
-			printf("Функция 5 \n");
-			break;
-
-			}
-<<<<<<< HEAD
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-=======
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
 			case(6):
 			{
-			printf("Функция 6 \n");
+			favoriteResource();
 			break;
-
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 			default: printf("Неверный пункт меню.\n"); break;
 		}
 		
-		
-=======
-		}
-		
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-=======
-		}
-		
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
+
 	}
 return 0;
 }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-//void checkWatch()
-//{
-//	printf("Текущее время: день %d, время %d:00\n", current_day, current_hour);
-//
-//
-//
-//}
-<<<<<<< HEAD
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-=======
->>>>>>> 7bc1507100016856fc1a40ae73652649b0ba7777
-
